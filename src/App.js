@@ -42,15 +42,15 @@ export default function App() {
     repositories[IndexRepo] = like;
     setRepositories([...repositories]);
   }
-  // async function handleLikeRepository(id) {
-  //   const response = await api.post(`repositories/${id}/like`);
-  //   const like = response.data;
-  //   setRepositories(
-  //     repositories.map((repository) =>
-  //       repository.id === like.id ? (repository = like) : repository
-  //     )
-  //   );
-  // }
+  async function handleLikeRepository(id) {
+    const response = await api.post(`repositories/${id}/like`);
+    const like = response.data;
+    setRepositories(
+      repositories.map((repository) =>
+        repository.id === like.id ? (repository = like) : repository
+      )
+    );
+  }
 
   const handleRemoveRepositorie = useCallback(
     (id) => {
@@ -112,8 +112,6 @@ export default function App() {
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() => handleRemoveRepositorie(item.id)}
-                  // Remember to replace "1" below with repository ID: {`like-button-${repository.id}`}
-                  testID={`like-button-${item.id}`}
                 >
                   <Text style={styles.buttonText}>Remove</Text>
                 </TouchableOpacity>
