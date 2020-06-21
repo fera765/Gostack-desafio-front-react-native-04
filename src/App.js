@@ -34,12 +34,23 @@ export default function App() {
   async function handleLikeRepository(id) {
     const response = await api.post(`repositories/${id}/like`);
     const like = response.data;
-    setRepositories(
-      repositories.map((repository) =>
-        repository.id === like.id ? (repository = like) : repository
-      )
-    );
+
+    const IndexRepo = repositories.findIndex((repository) => {
+      return repository.id === id;
+    });
+
+    repositories[IndexRepo] = like;
+    setRepositories([...repositories]);
   }
+  // async function handleLikeRepository(id) {
+  //   const response = await api.post(`repositories/${id}/like`);
+  //   const like = response.data;
+  //   setRepositories(
+  //     repositories.map((repository) =>
+  //       repository.id === like.id ? (repository = like) : repository
+  //     )
+  //   );
+  // }
 
   const handleRemoveRepositorie = useCallback(
     (id) => {
